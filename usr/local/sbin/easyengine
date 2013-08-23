@@ -746,8 +746,14 @@ EEMIGRATE()
 		sudo chmod 666 $MIGRATELOG
 	fi
 
-	# Souce Domain
-	read -p " Enter Source Domain Name To rsync: " DOMAIN
+	# Check IF Source Added in Command
+	if [ "$3" = "" ]
+	then
+		# Souce Domain
+		read -p " Enter Source Domain Name To rsync: " DOMAIN	
+	else
+		DOMAIN="$3"
+	fi
 
 	# Ask for MySQL Dump (If Option is Not "y", it will sync only webroot)
 	read -p " Do you want to Dump MySQL (y/n) [y]: " NODATABASE
@@ -776,14 +782,21 @@ EEMIGRATE()
 	fi
 
 	# Destination Domain
-	echo
 	echo -e " Required Destination Server Details: "
+
+	# Check IF Destination Added in Command
+	if [ "$4" = "" ]
+	then
+		# Souce Domain
+		read -p " Enter Destination Domain Name To rsync: " DESTDOMAIN
+	else
+		DESTDOMAIN="$4"
+	fi
+
 	read -p " Enter Usernames [www-data]: " DESTUSER
 	read -p " Enter Destination IP: " DESTIP
 	read -p " Enter Destination PORT [22]: " DESTPORT
-	read -p " Enter Destination Domain Name To rsync: " DESTDOMAIN
-	echo
-
+	
 	# If Enter Is Pressed, Then Destination User = www-data
 	if [[ $DESTUSER = "" ]]
 	then
