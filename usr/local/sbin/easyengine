@@ -884,7 +884,20 @@ EEMIGRATE()
 EEREDIRECT()
 {
 	# 301 Redirection
-	if [ -z "$EEREDIRECTSRC" ] && [ -z "$EEREDIRECTDEST" ]
+
+	# Source Domain
+	if [ -z "$EEREDIRECTSRC" ]
+	then
+		read -p " Enter domain which need to be redirect: " EEREDIRECTSRC
+	fi
+
+	# Destination Domain
+	if [ -z "$EEREDIRECTDEST" ]
+	then
+		read -p " Enter domain where to redirect: " EEREDIRECTDEST
+	fi
+
+	if [ ! -z "$EEREDIRECTSRC" ] && [ ! -z "$EEREDIRECTDEST" ]
 	then
 		echo 'server { \n server_name $EEREDIRECTSRC; \n return 301 $scheme://$EEREDIRECTDEST$request_uri; \n }' >> /etc/nginx/sites-available/$EEREDIRECTSRC
 		ln -s /etc/nginx/sites-available/$EEREDIRECTSRC /etc/nginx/sites-enabled/
