@@ -44,7 +44,7 @@ EEAUTO()
 
 
 		site)
-			COMPREPLY=( $( compgen -W "list listall show info create enable disable delete backup restore update" -- $CURRENT ) )
+			COMPREPLY=( $( compgen -W "list listall show info create enable disable delete backup restore update migrate" -- $CURRENT ) )
 			return 0
 			;;
 
