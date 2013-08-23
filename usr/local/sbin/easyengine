@@ -899,7 +899,7 @@ EEREDIRECT()
 
 	if [ ! -z "$EEREDIRECTSRC" ] && [ ! -z "$EEREDIRECTDEST" ]
 	then
-		echo 'server { \n server_name $EEREDIRECTSRC; \n return 301 $scheme://$EEREDIRECTDEST$request_uri; \n }' >> /etc/nginx/sites-available/$EEREDIRECTSRC
+		echo -e "server { \n server_name $EEREDIRECTSRC; \n return 301 \$scheme://$EEREDIRECTDEST\$request_uri; \n }" >> /etc/nginx/sites-available/$EEREDIRECTSRC
 		ln -s /etc/nginx/sites-available/$EEREDIRECTSRC /etc/nginx/sites-enabled/
 		service nginx restart;
 	fi
