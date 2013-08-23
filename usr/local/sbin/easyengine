@@ -740,6 +740,8 @@ REMOVENGINXCONF()
 
 EEMIGRATE()
 {
+	# EasyEngine Domain Migration
+
 	if [ ! -f $MIGRATELOG ]
 	then
 		sudo touch $MIGRATELOG
@@ -876,6 +878,17 @@ EEMIGRATE()
 		# User Denied Messages
 		echo
 		echo -e "\033[31m User Denied rsync from $MIGSRCDOMAIN to $DESTDOMAIN \e[0m" | tee -ai $MIGRATELOG
+	fi
+}
+
+EEREDIRECT()
+{
+	# 301 Redirection
+	if [ -z "$EEREDIRECTSRC" ] && [ -z "$EEREDIRECTDEST" ]
+	then
+		echo 'server { \n server_name $EEREDIRECTSRC; \n return 301 $scheme://$EEREDIRECTDEST$request_uri; \n }' >> /etc/nginx/sites-available/$EEREDIRECTSRC
+		ln -s /etc/nginx/sites-available/$EEREDIRECTSRC /etc/nginx/sites-enabled/
+		service nginx restart;
 	fi
 }
 
@@ -1790,6 +1803,12 @@ then
 		MIGDESTDOMAIN="$4"
 		EEMIGRATE
 
+	elif [ "$2" == "redirect" ]
+	then
+		EEREDIRECTSRC="$3"
+		EEREDIRECTDEST="$4"
+		EEREDIRECT
+		#statements
 	#elif [ "$2" = "delete" ]
 	#then
 
