@@ -117,7 +117,7 @@ then
 	rm -rf /tmp/easyengine &>> /dev/null
 
 	# Clone Easy Engine Repository
-	git clone git://github.com/manishsongirkar/easyengine.git /tmp/easyengine || OwnError "Unable To Clone Easy Engine"
+	git clone git://github.com/rtCamp/easyengine.git /tmp/easyengine || OwnError "Unable To Clone Easy Engine"
 fi
 
 # Create Directory /etc/easyengine
@@ -176,5 +176,5 @@ echo
 
 # Display Success Message
 echo -e "\033[34m Easy Engine Installed Successfully \e[0m" | tee -ai $INSTALLLOG
-echo -e "\033[34m Easy Engine Help: https://github.com/rtCamp/easyengine/wiki \e[0m" | tee -ai $INSTALLLOG
+echo -e "\033[34m Easy Engine Help: http://rtcamp.com/easyengine/docs/ \e[0m" | tee -ai $INSTALLLOG
 echo
